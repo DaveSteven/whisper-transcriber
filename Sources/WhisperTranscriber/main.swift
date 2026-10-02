@@ -44,11 +44,7 @@ struct ContentView: View {
 
     private var header: some View {
         HStack(spacing: 14) {
-            ZStack {
-                RoundedRectangle(cornerRadius: 13).fill(Color.quizletBlue)
-                Image(systemName: "waveform").font(.system(size: 22, weight: .bold)).foregroundStyle(.white)
-            }
-            .frame(width: 48, height: 48)
+            AppBrandIcon(size: 48, cornerRadius: 13)
             VStack(alignment: .leading, spacing: 2) {
                 Text("Whisper Transcriber").font(.system(size: 26, weight: .bold, design: .rounded))
                 Text("Turn audio and video into text").font(.callout).foregroundStyle(.secondary)
@@ -290,10 +286,7 @@ struct OnboardingView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 22) {
-            ZStack {
-                RoundedRectangle(cornerRadius: 16).fill(Color.quizletBlue)
-                Image(systemName: "waveform").font(.system(size: 28, weight: .bold)).foregroundStyle(.white)
-            }.frame(width: 58, height: 58)
+            AppBrandIcon(size: 58, cornerRadius: 16)
             VStack(alignment: .leading, spacing: 6) {
                 Text("Welcome to Whisper Transcriber").font(.title.bold())
                 Text("Choose a transcription quality to get started.").foregroundStyle(.secondary)
@@ -330,6 +323,19 @@ struct OnboardingView: View {
         }
         .padding(34).frame(width: 540).background(Color.appBackground).tint(.quizletBlue)
         .interactiveDismissDisabled(!worker.setupReady)
+    }
+}
+
+private struct AppBrandIcon: View {
+    let size: CGFloat
+    let cornerRadius: CGFloat
+
+    var body: some View {
+        Image(nsImage: NSApplication.shared.applicationIconImage)
+            .resizable()
+            .scaledToFit()
+            .frame(width: size, height: size)
+            .clipShape(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
     }
 }
 
