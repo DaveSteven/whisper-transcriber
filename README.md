@@ -1,33 +1,35 @@
 # Whisper Transcriber
 
-一款原生 macOS 音视频转文字工具。文件和模型均在本机处理，支持通过
-`whisper.cpp` 或 Apple Silicon 上的 MLX Whisper 完成转录。
+A native macOS app that turns audio and video into text. Your media and models
+are processed locally using either `whisper.cpp` or MLX Whisper on Apple Silicon.
 
-## 功能
+## Features
 
-- 拖放或选择音频、视频文件
-- 自动识别语言，或指定英语、中文、日语、韩语和西班牙语
-- 支持 `whisper.cpp` 与 MLX Whisper，并可自动选择可用后端
-- 提供 Large V3 Turbo（速度优先）和 Large V3（准确率优先）模型
-- 实时显示模型下载与转录进度
-- 预览和复制转录结果
-- 导出 TXT、SRT 和 WebVTT 文件
+- Drag and drop audio or video files, or select them from Finder
+- Detect the spoken language automatically, or choose English, Chinese,
+  Japanese, Korean, or Spanish
+- Use `whisper.cpp`, MLX Whisper, or automatically select an available backend
+- Choose between Large V3 Turbo for speed and Large V3 for accuracy
+- Track model download and transcription progress
+- Preview and copy transcripts in the app
+- Export transcripts as TXT, SRT, or WebVTT files
 
-## 系统要求
+## Requirements
 
-- macOS 14 Sonoma 或更高版本
-- Swift 6 / Xcode 16 或更高版本（从源码构建时）
-- 足够的磁盘空间用于模型：
-  - Large V3 Turbo：约 1.6 GB
-  - Large V3：约 3.1 GB
+- macOS 14 Sonoma or later
+- Swift 6 / Xcode 16 or later when building from source
+- Enough disk space for your selected model:
+  - Large V3 Turbo: approximately 1.6 GB
+  - Large V3: approximately 3.1 GB
 
-`whisper.cpp` 后端已随项目集成，无需额外安装。MLX 后端仅适用于 Apple
-Silicon；应用可通过 Python 3 创建独立运行环境并安装 `mlx-whisper`。如果未安装
-Python 3，可直接使用 `whisper.cpp`。
+The `whisper.cpp` backend is included with the project and does not require a
+separate installation. The MLX backend is available on Apple Silicon only. The
+app can create an isolated Python environment and install `mlx-whisper` when
+Python 3 is available; otherwise, you can use `whisper.cpp` directly.
 
-## 构建与运行
+## Build and Run
 
-克隆项目后执行：
+Clone the repository and run the build script:
 
 ```bash
 git clone git@github.com:DaveSteven/whisper-transcriber.git
@@ -35,39 +37,42 @@ cd whisper-transcriber
 ./build-app.sh
 ```
 
-构建完成后，应用位于：
+The packaged app will be created at:
 
 ```text
 dist/Whisper Transcriber.app
 ```
 
-也可以直接通过 Swift Package Manager 运行或测试：
+You can also run or test the project with Swift Package Manager:
 
 ```bash
 swift run
 swift test
 ```
 
-## 使用方法
+## Usage
 
-1. 启动应用并选择转录模型，首次使用时按提示下载。
-2. 将音频或视频拖入窗口，或点击 **Choose file** 选择文件。
-3. 选择语言、导出格式和保存目录。
-4. 开始转录，并在右侧预览结果。
+1. Launch the app and select a transcription model. Follow the prompt to
+   download it on first use.
+2. Drop an audio or video file into the window, or click **Choose file**.
+3. Select the language, export formats, and output directory.
+4. Start the transcription and preview the result in the app.
 
-模型默认保存在：
+Models are stored by default in:
 
 ```text
 ~/Library/Application Support/Whisper Transcriber/Models
 ```
 
-## 技术栈
+## Technology
 
 - SwiftUI
 - Swift Package Manager
 - [whisper.cpp](https://github.com/ggml-org/whisper.cpp)
 - [MLX Whisper](https://github.com/ml-explore/mlx-examples/tree/main/whisper)
 
-## 隐私
+## Privacy
 
-转录在本机完成。除下载所选模型和安装可选的 MLX 运行环境外，音视频内容无需上传到远程服务。
+Transcription runs locally on your Mac. Your audio and video files do not need
+to be uploaded to a remote service. Network access is only used to download the
+selected model and install the optional MLX runtime.
