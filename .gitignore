@@ -1,0 +1,14 @@
+.DS_Store
+.build/
+.swiftpm/
+.gitdata/
+dist/
+
+# Downloaded archives and debug symbols
+Vendor/*.zip
+Vendor/**/*.dSYM/
+
+# Local speech models
+*.bin
+*.safetensors
+*.partial
