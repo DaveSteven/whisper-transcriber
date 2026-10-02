@@ -331,11 +331,45 @@ private struct AppBrandIcon: View {
     let cornerRadius: CGFloat
 
     var body: some View {
-        Image(nsImage: NSApplication.shared.applicationIconImage)
-            .resizable()
-            .scaledToFit()
+        ZStack {
+            RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
+                .fill(
+                    LinearGradient(
+                        colors: [Color(red: 0.20, green: 0.31, blue: 1.0),
+                                 Color(red: 0.25, green: 0.18, blue: 0.96)],
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    )
+                )
+            BrandMark()
+                .fill(.white)
+                .padding(size * 0.15)
+        }
             .frame(width: size, height: size)
-            .clipShape(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
+            .accessibilityHidden(true)
+    }
+}
+
+private struct BrandMark: Shape {
+    func path(in rect: CGRect) -> Path {
+        func scaled(_ x: CGFloat, _ y: CGFloat, _ width: CGFloat, _ height: CGFloat) -> CGRect {
+            CGRect(x: rect.minX + rect.width * x, y: rect.minY + rect.height * y,
+                   width: rect.width * width, height: rect.height * height)
+        }
+
+        var path = Path()
+        path.addRoundedRect(in: scaled(0.02, 0.38, 0.10, 0.24), cornerSize: scaledCorner(rect, 0.05))
+        path.addRoundedRect(in: scaled(0.17, 0.27, 0.10, 0.46), cornerSize: scaledCorner(rect, 0.05))
+        path.addRoundedRect(in: scaled(0.32, 0.13, 0.10, 0.74), cornerSize: scaledCorner(rect, 0.05))
+        path.addRoundedRect(in: scaled(0.47, 0.27, 0.10, 0.46), cornerSize: scaledCorner(rect, 0.05))
+        path.addRoundedRect(in: scaled(0.62, 0.29, 0.36, 0.10), cornerSize: scaledCorner(rect, 0.05))
+        path.addRoundedRect(in: scaled(0.55, 0.45, 0.43, 0.10), cornerSize: scaledCorner(rect, 0.05))
+        path.addRoundedRect(in: scaled(0.62, 0.61, 0.31, 0.10), cornerSize: scaledCorner(rect, 0.05))
+        return path
+    }
+
+    private func scaledCorner(_ rect: CGRect, _ amount: CGFloat) -> CGSize {
+        CGSize(width: rect.width * amount, height: rect.height * amount)
     }
 }
 
