@@ -5,7 +5,13 @@ import AppKit
 @main
 struct WhisperTranscriberApp: App {
     @StateObject private var model = Transcriber()
-    var body: some Scene { WindowGroup { ContentView().environmentObject(model) } }
+    var body: some Scene {
+        WindowGroup {
+            ContentView()
+                .environmentObject(model)
+                .preferredColorScheme(.light)
+        }
+    }
 }
 
 struct ContentView: View {
